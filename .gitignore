@@ -1,0 +1,63 @@
+﻿# Environment and secrets
+.env
+.env.*
+!.env.example
+secrets/
+credentials/
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Logs and runtime data
+*.log
+storage/logs/*
+!storage/logs/.gitkeep
+
+# Database backups
+*.sql.gz
+*.dump
+*.bak
+*.backup
+
+# Dependencies
+vendor/
+node_modules/
+
+# Editor temporary files
+*.swp
+*.swo
+*.tmp
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.idea/
+.vscode/
+
+# Database backups and exports
+/backups/
+/backup/
+*_backup.sql
+*-backup.sql
+*_dump.sql
+*-dump.sql
+*.sql.zip
+*.sql.7z
+*.sql.tar
+*.sql.bz2
+*.sql.xz
+
+# Runtime data
+storage/cache/
+storage/sessions/
+storage/tmp/
+
+# Local configuration
+config/*.local.php
+config/*-local.php
