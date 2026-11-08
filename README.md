@@ -54,24 +54,10 @@ Teknologi yang direncanakan dalam proyek ini meliputi:
 - Ubuntu Server.
 - Integrasi layanan jaringan dan infrastruktur.
 
-## 6. Struktur Repository
-
-gnsg-intelligence-core/
-├── app/
-├── bootstrap/
-├── config/
-├── docs/
-├── migrations/
-├── public/
-├── routes/
-├── scripts/
-├── storage/
-└── tests/
-
 
 Setiap direktori memiliki tanggung jawab tersendiri dalam pengembangan sistem.
 
-## 7. Status Pengembangan
+## 6. Status Pengembangan
 
 **Status: Dalam tahap pembangunan aktif.**
 
@@ -88,13 +74,13 @@ Modul AI, autentikasi lengkap, integrasi Telegram, pemantauan infrastruktur, dan
 
 Keberadaan direktori atau nama berkas belum berarti fitur terkait sudah selesai diimplementasikan.
 
-## 8. Pengembangan dan Kontribusi
+## 7. Pengembangan dan Kontribusi
 
 Proyek ini dikembangkan secara bertahap dengan mengutamakan keamanan, pengujian, dokumentasi, dan verifikasi sebelum setiap perubahan diterapkan.
 
 Untuk pedoman pengembangan, silakan merujuk ke `CONTRIBUTING.md`.
 
-## 9. Keamanan dan Penggunaan
+## 8. Keamanan dan Penggunaan
 
 Repository ini tidak boleh memuat kredensial produksi, token API, hash kata sandi, data pelanggan, cadangan basis data, atau konfigurasi privat.
 
