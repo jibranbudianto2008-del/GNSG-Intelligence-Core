@@ -90,4 +90,4 @@ Untuk pelaporan kerentanan keamanan, silakan merujuk ke `SECURITY.md`.
 
 **GNSG Intelligence Core**
 
-Dikembangkan untuk Mohammad Jibran N.A Budianto.
+Dikembangkan oleh Mohammad Jibran N.A Budianto.
