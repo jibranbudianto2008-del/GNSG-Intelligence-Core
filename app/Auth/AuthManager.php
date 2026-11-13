@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GNSG\Auth;
 
 use GNSG\Database\Connection;
+use GNSG\Security\CsrfProtection;
 use PDO;
 
 final class AuthManager
@@ -19,9 +20,8 @@ final class AuthManager
     }
 
     /**
-     * Authenticate a user using username and password.
-     *
-     * Returns safe user data on success, or null on failure.
+     * Verify username and password.
+     * Returns safe user data on success, otherwise null.
      */
     public function authenticate(
         string $username,
@@ -65,7 +65,7 @@ final class AuthManager
             ? $user['password_hash']
             : $this->getDummyHash();
 
-        $passwordIsValid = password_verify(
+        $passwordIsValid = PasswordHasher::verify(
             $password,
             $storedHash
         );
@@ -87,14 +87,64 @@ final class AuthManager
     }
 
     /**
+     * Authenticate and establish an application session.
+     */
+    public function login(
+        string $username,
+        string $password
+    ): bool {
+        Session::start();
+
+        // Remove any previous authenticated identity.
+        Session::remove('auth_user');
+
+        $user = $this->authenticate($username, $password);
+
+        if ($user === null) {
+            return false;
+        }
+
+        // Prevent session fixation after successful authentication.
+        Session::regenerateId();
+
+        // Invalidate the anonymous CSRF token after authentication.
+        CsrfProtection::rotateToken();
+
+        Session::set('auth_user', $user);
+
+        return true;
+    }
+
+    /**
+     * Return the authenticated user from the current session.
+     */
+    public function currentUser(): ?array
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            return null;
+        }
+
+        $user = Session::get('auth_user');
+
+        return is_array($user) ? $user : null;
+    }
+
+    /**
+     * End the current application session.
+     */
+    public function logout(): void
+    {
+        Session::destroy();
+    }
+
+    /**
      * Generate a dummy hash for failed authentication checks.
      */
     private function getDummyHash(): string
     {
         if (self::$dummyHash === null) {
-            self::$dummyHash = password_hash(
-                random_bytes(32),
-                PASSWORD_ARGON2ID
+            self::$dummyHash = PasswordHasher::hash(
+                bin2hex(random_bytes(32))
             );
         }
 
